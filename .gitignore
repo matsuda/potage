@@ -2,3 +2,4 @@
 */.DS_Store
 *~
 *.tmproj
+db/*.db
