@@ -1,0 +1,6 @@
+<p>id:<%= @post.id %></p>
+<h3><%= @post.title %></h3>
+<p>
+  <%= @post.format_body %>
+</p>
+<p><%= date_format @post.created_at %></p>
