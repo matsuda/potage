@@ -1,6 +1,7 @@
 __DIR__ = File.dirname(__FILE__)
 
 require 'rubygems'
+require 'yaml'
 require 'sinatra'
 require 'sequel'
 
@@ -18,28 +19,40 @@ configure do
       DateTime  :updated_at
     end
   end
+
+  config = YAML.load_file(File.join(__DIR__, 'config', 'config.yml'))
+  Blog = OpenStruct.new config["blog"]
 end
 
 def require_or_load(file)
   development? ? load(file) : require(file)
 end
 
-__MODEL_DIR__ = 'models'
-# $LOAD_PATH.unshift(File.dirname(__FILE__) + '/models')
-$LOAD_PATH.unshift(File.join(__DIR__, __MODEL_DIR__))
-require_or_load File.join(__MODEL_DIR__, 'post.rb')
+$LOAD_PATH.unshift(File.expand_path(File.join(__DIR__, 'models')))
+Dir[File.expand_path(File.join(File.dirname(__FILE__), 'models/*.rb'))].sort.each { |lib|
+  require_or_load lib 
+}
+
+enable :sessions
 
 # 
 # Helpers
 # 
 helpers do
+  include Rack::Utils
+  alias_method :h, :escape_html
+
   def date_format(date)
     date && date.strftime("%Y/%m/%d %H:%M")
   end
   
   def authorized?
-    true
-    # halt 401, 'Not Autorized'
+    halt 401, 'Not Autorized' unless session['potage']
+  end
+
+  def authenticate(username, password)
+    admin = YAML.load_file(File.join(__DIR__, 'config', 'config.yml'))["admin"]
+    session['potage'] = true if username == admin["username"] && password == admin["password"]
   end
 end
 
@@ -59,6 +72,15 @@ end
 get '/post/:id' do
   @post = Post[params[:id]]
   erb :post
+end
+
+get 'auth' do
+  erb :auth
+end
+
+post 'auth' do
+  
+  redirect '/'
 end
 
 get '/posts/new' do

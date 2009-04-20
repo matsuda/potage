@@ -1,0 +1,10 @@
+blog:
+  title: "Blog title"
+  description: "Blog description"
+  author: "author name"
+
+admin:
+  username: "admin"
+  password: "admin"
+
+  
