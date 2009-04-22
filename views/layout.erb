@@ -17,6 +17,9 @@
     <li><a href="/">Top</a></li>
     <li><a href="/posts">All</a></li>
     <li><a href="/posts/new">New</a></li>
+    <% if logged_in? %>
+      <li><a href="/logout">logout</a></li>
+    <% end %>
   </ul>
   <div><%= yield %></div>
   <script type="text/javascript">

@@ -1,5 +1,3 @@
-__DIR__ = File.dirname(__FILE__)
-
 require 'rubygems'
 require 'yaml'
 require 'sinatra'
@@ -9,6 +7,9 @@ require 'sequel'
 # Configuration
 # 
 configure do
+  # enable :sessions
+  set_option :sessions, true
+
   DB = Sequel.connect('sqlite://db/potage.db')
   unless DB.table_exists?(:posts)
     DB.create_table :posts do
@@ -20,7 +21,7 @@ configure do
     end
   end
 
-  config = YAML.load_file(File.join(__DIR__, 'config', 'config.yml'))
+  config = YAML.load_file(File.join(File.dirname(__FILE__), 'config', 'config.yml'))
   Blog = OpenStruct.new config["blog"]
 end
 
@@ -28,12 +29,10 @@ def require_or_load(file)
   development? ? load(file) : require(file)
 end
 
-$LOAD_PATH.unshift(File.expand_path(File.join(__DIR__, 'models')))
+$LOAD_PATH.unshift(File.expand_path(File.join(File.dirname(__FILE__), 'models')))
 Dir[File.expand_path(File.join(File.dirname(__FILE__), 'models/*.rb'))].sort.each { |lib|
   require_or_load lib 
 }
-
-enable :sessions
 
 # 
 # Helpers
@@ -45,15 +44,24 @@ helpers do
   def date_format(date)
     date && date.strftime("%Y/%m/%d %H:%M")
   end
-  
+
+  def logged_in?
+    !!session['potage']
+  end
+
   def authorized?
     halt 401, 'Not Autorized' unless session['potage']
   end
 
   def authenticate(username, password)
-    admin = YAML.load_file(File.join(__DIR__, 'config', 'config.yml'))["admin"]
+    admin = YAML.load_file(File.join(File.dirname(__FILE__), 'config', 'config.yml'))["admin"]
+    p admin
     session['potage'] = true if username == admin["username"] && password == admin["password"]
   end
+end
+
+before do
+  p session['potage']
 end
 
 # 
@@ -74,12 +82,18 @@ get '/post/:id' do
   erb :post
 end
 
-get 'auth' do
+get '/auth' do
   erb :auth
 end
 
-post 'auth' do
-  
+post '/auth' do
+  authenticate params[:username], params[:password]
+  authorized?
+  redirect '/'
+end
+
+get '/logout' do
+  session['potage'] = nil
   redirect '/'
 end
 
