@@ -1,28 +1,17 @@
 require 'rubygems'
 require 'yaml'
 require 'sinatra'
-require 'sequel'
 
 # 
 # Configuration
 # 
 configure do
   # enable :sessions
-  set_option :sessions, true
-
-  DB = Sequel.connect('sqlite://db/potage.db')
-  unless DB.table_exists?(:posts)
-    DB.create_table :posts do
-      primary_key :id
-      String    :title
-      String    :body
-      DateTime  :created_at
-      DateTime  :updated_at
-    end
-  end
-
+  set :sessions, true
   config = YAML.load_file(File.join(File.dirname(__FILE__), 'config', 'config.yml'))
   Blog = OpenStruct.new config["blog"]
+  bit = ('0'..'9').to_a + ('A'..'Z').to_a
+  Blog.session_key = Array.new(8){ bit[rand(bit.size)] }.join
 end
 
 def require_or_load(file)
@@ -41,27 +30,40 @@ helpers do
   include Rack::Utils
   alias_method :h, :escape_html
 
+  def simple_format(text)
+    text && h(text).gsub(/\r\n/, "\n").gsub(/\n/, '<br />')
+  end
+
   def date_format(date)
-    date && date.strftime("%Y/%m/%d %H:%M")
+    date && date.strftime("%Y/%m/%d %H:%M:%S")
+  end
+
+  def partial(template, options = {})
+    options = options.merge!({:layout => false})
+    template_engine = options[:template_engine] || 'haml'
+    # haml(template.to_sym, options)
+    send(template_engine, template.to_sym, options)
   end
 
   def logged_in?
-    !!session['potage']
+    # !!session['potage']
+    session['potage'] && session['potage'] == Blog.session_key
   end
 
   def authorized?
-    halt 401, 'Not Autorized' unless session['potage']
+    redirect '/auth' and return unless logged_in?
+    # halt 401, 'Not Autorized' unless session['potage']
   end
 
   def authenticate(username, password)
     admin = YAML.load_file(File.join(File.dirname(__FILE__), 'config', 'config.yml'))["admin"]
-    p admin
-    session['potage'] = true if username == admin["username"] && password == admin["password"]
+    # session['potage'] = true if username == admin["username"] && password == admin["password"]
+    session['potage'] = Blog.session_key if username == admin["username"] && password == admin["password"]
   end
 end
 
 before do
-  p session['potage']
+  # p session['potage']
 end
 
 # 
@@ -69,21 +71,21 @@ end
 # 
 get '/' do
   @post = Post.reverse_order(:updated_at).first
-  erb :index
+  haml :index
 end
 
 get '/posts' do
   @posts = Post.reverse_order(:updated_at)
-  erb :posts
+  haml :posts
 end
 
 get '/post/:id' do
-  @post = Post[params[:id]]
-  erb :post
+  post = Post[params[:id]]
+  haml :post, :locals => {:post => post}
 end
 
 get '/auth' do
-  erb :auth
+  haml :auth
 end
 
 post '/auth' do
@@ -100,7 +102,7 @@ end
 get '/posts/new' do
   authorized?
   post = Post.new
-  erb :edit, :locals => {:post => post}
+  haml :edit, :locals => {:post => post}
 end
 
 post '/posts' do
@@ -110,12 +112,11 @@ post '/posts' do
     post.save
     redirect "/post/#{post.id}"
   rescue Sequel::ValidationFailed => e
-    erb :edit, :locals => {:post => post}
+    haml :edit, :locals => {:post => post}
   end
 end
 
 get '/feeds' do
-  authorized?
   content_type 'application/xml', :charset => 'utf-8'
   builder :index
 end

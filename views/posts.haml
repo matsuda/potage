@@ -1,0 +1,5 @@
+- @posts.each do |post|
+  %p
+    %a{:href => "/post/#{post.id}"}= post.id
+    \:
+    = post.title

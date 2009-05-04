@@ -1,34 +1,42 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
-<head>
-<meta http-equiv="Content-Language" content="ja" />
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta http-equiv="Content-Style-Type" content="text/css" />
-<meta http-equiv="Content-Script-Type" content="text/javascript" />
-<meta http-equiv="imagetoolbar" content="no" />
-<meta name="description" content="" />
-<meta name="keywords" content="" />
-<!-- <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" /> -->
-<title>Potage</title>
-<!-- <link rel="stylesheet" href="/css/base.css" type="text/css" media="screen" title="base" charset="utf-8" /> -->
-</head>
-<body>
-  <p>Potage</p>
-  <%= yield %>
-
-  <script type="text/javascript">
-  //<![CDATA[
-  (function() {
-    var links = document.getElementsByTagName('a');
-    var query = '?';
-    for(var i = 0; i < links.length; i++) {
-      if(links[i].href.indexOf('#disqus_thread') >= 0) {
-        query += 'url' + i + '=' + encodeURIComponent(links[i].href) + '&';
-      }
-    }
-    document.write('<script charset="utf-8" type="text/javascript" src="http://disqus.com/forums/potage/get_num_replies.js' + query + '"></' + 'script>');
-  })();
-  //]]>
-  </script>
-</body>
-</html>
+!!! XML
+!!! Strict
+%html{ html_attrs("ja") }
+  %head
+    %meta{'http-equiv' => 'Content-Language', :conent => 'ja'}
+    %meta{'http-equiv' => 'Content-Type', :conent => 'text/html', :charset => 'utf-8'}
+    %meta{'http-equiv' => 'Content-Style-Type', :conent => 'text/css'}
+    %meta{'http-equiv' => 'Content-Script-Type', :conent => 'text/javascript'}
+    %meta{'http-equiv' => 'Imagetoolbar', :conent => 'no'}
+    %meta{:name => 'Description', :conent => Blog.description}
+    %meta{:name => 'Keywords', :conent => ''}
+    %meta{:name => 'Author', :conent => Blog.author}
+    %title= Blog.title
+    -# %link{:rel => 'shortcut icon', :type => 'image/x-icon', :href => '/images/favicon.ico'}
+    -# %link{:rel => 'stylesheet', :type => 'text/css', :href => '/css/base.css', :media => 'screen', :title => 'base', :charset => 'utf-8'}
+  %body
+    #header
+      %h1 Potage
+      %ul
+        %li
+          %a{:href => '/'} Top
+        %li
+          %a{:href => '/posts'} All
+        %li
+          %a{:href => '/posts/new'} New
+        - if logged_in?
+          %li
+            %a{:href => '/logout'} logout
+    #contnet
+      = yield
+    #footer
+      :javascript
+        (function() {
+          var links = document.getElementsByTagName('a');
+          var query = '?';
+          for(var i = 0; i < links.length; i++) {
+            if(links[i].href.indexOf('#disqus_thread') >= 0) {
+              query += 'url' + i + '=' + encodeURIComponent(links[i].href) + '&';
+            }
+          }
+          document.write('<script charset="utf-8" type="text/javascript" src="http://disqus.com/forums/potage/get_num_replies.js' + query + '"></' + 'script>');
+        })();
