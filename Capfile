@@ -12,8 +12,8 @@ set :user, 'mat5uda'
 set :application, 'blog'
 set :repository,  "git@github.com:#{github_user}/#{github_application}.git"
 
-set :deply_to, "/home/#{user}/#{application}.#{domain}"
-set :deply_via, :remote_cache
+set :deploy_to, "/home/#{user}/#{application}.#{domain}"
+set :deploy_via, :remote_cache
 set :scm, 'git'
 set :branch, 'master'
 set :git_shallow_clone, 1
