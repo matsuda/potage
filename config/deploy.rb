@@ -13,3 +13,39 @@
 # role :app, "your app-server here"
 # role :web, "your web-server here"
 # role :db,  "your db-server here", :primary => true
+
+default_run_options[:pty] = true
+set :ssh_options, {:forward_agent => true}
+
+set :github_user, 'potage'
+set :github_application, 'potage'
+set :domain, 'potage.org'
+set :user, 'mat5uda'
+
+set :application, 'blog'
+# set :repository,  "git@github.com:#{github_user}/#{github_application}.git"
+set :repository,  "git://github.com/#{github_user}/#{github_application}.git"
+
+set :scm, 'git'
+set :branch, 'master'
+set :git_shallow_clone, 1
+set :scm_verbose, true
+
+set :deploy_to, "/home/#{user}/#{application}.#{domain}"
+set :deploy_via, :remote_cache
+# set :deploy_via, :copy
+# set :copy_remote_dir, "#{shared_path}/tmp"
+# set :copy_strategy, :export
+
+set :use_sudo, false
+
+server domain, :app, :web
+
+# set :keep_releases, 3
+# after "deploy:update", "deploy:cleanup"
+
+namespace :deploy do
+  task :restart do
+    run "touch #{current_path}/tmp/restart.txt"
+  end
+end
