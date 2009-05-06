@@ -1,6 +1,6 @@
-ENV['GEM_PATH'] = File.expand_path('~/.gems') + ':/usr/lib/ruby/gems/1.8'
+# $LOAD_PATH << '/home/mat5uda/.gems/gems'
+ENV['GEM_PATH'] = '/home/mat5uda/.gems:/usr/lib/ruby/gems/1.8'
 
-require 'rubygems'
 require 'potage'
 
 set :run, false
