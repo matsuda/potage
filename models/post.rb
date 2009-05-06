@@ -1,6 +1,6 @@
 require 'sequel'
 Sequel::Model.plugin(:schema)
-Sequel.connect('sqlite://db/potage.db')
+Sequel.connect(ENV['DATABASE_URL'] || 'sqlite://db/potage.db')
 
 class Post < Sequel::Model
   unless table_exists?
