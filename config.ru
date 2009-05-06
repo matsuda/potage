@@ -1,4 +1,7 @@
-# ENV['GEM_PATH'] = '/home/mat5uda/.gems:/usr/lib/ruby/gems/1.8'
+# 
+# installing local gems to $HOME/.gems on DreamHost
+# http://wiki.dreamhost.com/RubyGems
+# 
 ENV['GEM_PATH'] = File.expand_path('~/.gems') + ':/usr/lib/ruby/gems/1.8'
 
 require 'potage'
