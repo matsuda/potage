@@ -41,8 +41,11 @@ set :use_sudo, false
 
 server domain, :app, :web
 
-# set :keep_releases, 3
-# after "deploy:update", "deploy:cleanup"
+set :keep_releases, 3
+after "deploy:update", "deploy:cleanup"
+after "deploy:update_code" do
+  run "ln -s #{shared_path}/config.yml #{release_path}/config"
+end
 
 namespace :deploy do
   task :restart do
