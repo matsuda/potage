@@ -41,10 +41,6 @@ helpers do
   include Rack::Utils
   alias_method :h, :escape_html
 
-  # def simple_format(text)
-  #   text && h(text).gsub(/\r\n/, "\n").gsub(/\n/, '<br />')
-  # end
-
   def date_format(date)
     date && date.strftime("%Y/%m/%d %H:%M:%S")
   end
