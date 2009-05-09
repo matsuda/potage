@@ -63,9 +63,7 @@ helpers do
 
   def partial(template, options = {})
     options = options.merge!({:layout => false})
-    template_engine = options[:template_engine] || 'haml'
-    # haml(template.to_sym, options)
-    send(template_engine, template.to_sym, options)
+    haml template.to_sym, options
   end
 
   def logged_in?
@@ -93,6 +91,7 @@ end
 # 
 get '/' do
   @post = Post.reverse_order(:updated_at).first
+  @posts = Post.reverse_order(:updated_at)
   haml :index
 end
 
@@ -121,15 +120,15 @@ get '/logout' do
   redirect '/'
 end
 
-get '/posts/new' do
+get '/admin/posts/new' do
   authorized?
   post = Post.new
   haml :edit, :locals => {:post => post}
 end
 
-post '/posts' do
+post '/admin/posts' do
   authorized?
-  post = Post.new :title => params[:title], :body => params[:body]
+  post = Post.new :title => params[:title], :content => params[:content]
   begin
     post.save
     redirect "/post/#{post.id}"

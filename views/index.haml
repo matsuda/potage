@@ -1,2 +1,7 @@
 - if @post
-  = partial :post, :locals => {:post => @post}
+  = partial '_post', :locals => {:post => @post}
+  %ul
+    - @posts.each do |post|
+      - title = h(post.title)
+      %li
+        %a{:href => "/post/#{post.id}", :title => title}= h title
