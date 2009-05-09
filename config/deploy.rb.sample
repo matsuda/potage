@@ -9,6 +9,7 @@ set :repository,  "git://github.com/#{github_user}/#{github_application}.git"
 set :scm, 'git'
 set :branch, 'master'
 set :git_shallow_clone, 1
+set :git_enable_submodules, 1
 set :scm_verbose, true
 
 # application info

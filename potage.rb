@@ -1,6 +1,8 @@
 require 'rubygems'
+# require 'sinatra'
+require 'vendor/sinatra/lib/sinatra'
+require 'haml'
 require 'yaml'
-require 'sinatra'
 require 'date'
 
 # 
