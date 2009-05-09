@@ -34,12 +34,23 @@ server domain, :app, :web
 set :keep_releases, 3
 
 # after callback
+after "deploy:setup", "config:setup_shared_dirs"
+after "deploy:update_code", "config:symlink"
 after "deploy:update", "deploy:cleanup"
-after "deploy:update_code" do
-  run "ln -s #{shared_path}/config.yml #{release_path}/config"
+
+namespace :config do
+  desc "setup directories for condig and database"
+  task :setup_shared_dirs do
+    run "mkdir -p #{shared_path}/config #{shared_path}/db"
+  end
+
+  desc "Make symlink for config and database" 
+  task :symlink do
+    run "ln -s #{shared_path}/config/config.yml #{release_path}/config"
+    run "ln -s #{shared_path}/db/potage.db #{release_path}/db" 
+  end
 end
 
-# override
 namespace :deploy do
   task :restart do
     run "touch #{current_path}/tmp/restart.txt"
