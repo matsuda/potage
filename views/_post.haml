@@ -1,4 +1,4 @@
 %p.published-at= date_format(post.created_at)
 %h3.title
   %a{:href => post.url, :class => 'link', :title => h(post.title)}&= post.title
-%p.content= post.content
+%p.content= markup post.content
