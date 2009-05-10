@@ -8,19 +8,18 @@ class Post < Sequel::Model
       primary_key :id
       string      :title
       text        :content
-      timestamp   :created_at
-      timestamp   :updated_at
+      DateTime    :created_at
+      DateTime    :updated_at
     end
     create_table
   end
 
   def before_create
-    self.created_at = Time.now
-    self.updated_at = Time.now
+    self.created_at = DateTime.now
   end
 
   def before_save
-    self.updated_at = Time.now
+    self.updated_at = DateTime.now
   end
 
   def validate

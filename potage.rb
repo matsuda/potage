@@ -3,7 +3,6 @@ require 'rubygems'
 require 'vendor/sinatra/lib/sinatra'
 require 'haml'
 require 'yaml'
-require 'date'
 
 # 
 # Configuration
