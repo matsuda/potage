@@ -11,24 +11,29 @@
     %meta{ :name => 'Keywords', :conent => '' }
     %meta{ :name => 'Author', :conent => Blog.author }
     %title= Blog.title
-    -# %link{:rel => 'shortcut icon', :type => 'image/x-icon', :href => '/images/favicon.ico'}
-    -# %link{:rel => 'stylesheet', :type => 'text/css', :href => '/css/base.css', :media => 'screen', :title => 'base', :charset => 'utf-8'}
     %link{ :rel => 'alternate', :type => 'application/rss+xml', :title => 'RSS', :href => base_url+'/feed' }
+    -# %link{:rel => 'shortcut icon', :type => 'image/x-icon', :href => '/images/favicon.ico'}
+    %link{:rel => 'stylesheet', :type => 'text/css', :href => '/stylesheets/base.css', :media => 'screen', :title => 'base', :charset => 'utf-8'}
   %body
-    #header
-      %h1= Blog.title
-      %h2= Blog.description
-      %ul
-        %li
-          %a{:href => '/'} Top
-        %li
-          %a{:href => '/posts'} All
-        %li
-          %a{:href => '/admin/posts/new'} New
-        - if logged_in?
-          %li
-            %a{:href => '/logout'} logout
-    #contnet
-      = yield
-    #footer
+    #container
+      #header
+        %h1.logo
+          %a{:href => '/', :title => 'title', :class => 'link'}= Blog.title
+        %h2.description= Blog.description
+        / %ul
+        /   %li
+        /     %a{:href => '/'} Top
+        /   %li
+        /     %a{:href => '/posts'} All
+        /   - if logged_in?
+        /     %li
+        /       %a{:href => '/admin/posts/new'} New
+        /     %li
+        /       %a{:href => '/logout'} logout
+      #content
+        = yield
+      #footer
+        %div |
+          Powerd by
+          %a{:href => 'http://github.com/potage/potage/tree/master', :title => 'Potage'} Potage
       = Disqus.snippet_2

@@ -1,36 +1,150 @@
+@charset "utf-8";
+/***************
+  base
+***************/
+/***************
+  tag
+***************/
 * {
   margin: 0;
   padding: 0;
   outline: none;
 }
 html, body {
-/*  height: 100%;*/
+  height: 100%;
 }
 body {
   font-size: 100%;
-  font-family: Helvetica, Verdana, Arial, "ヒラギノ角ゴPro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, 'ヒラギノ角ゴPro W3', 'Hiragino Kaku Gothic Pro', Osaka, 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', sans-serif;
+  background: #FFFFFF;
   text-align: center;
+  padding-bottom: 5em;
 }
-div#top {
-  margin-top: 50px;
-  color: #333333;
+img {
+  border: none;
 }
-h1 {
-  margin-bottom: 50px;
-  font-size: 5.0em;
+hr {
+  display: none;
 }
-li {
-  margin: 5px 0;
+h1, h2, h3, h4, div, p, ul, ol, li, dt, dd, label, td {
+  font-weight: normal;
+/*  letter-spacing: 0.1em;*/
+  font-style: normal;
+  font-weight: normal;
 }
-li span {
-  padding: 5px;
-  color: #666666;
+ul, dl {
+  list-style-type: none;
+}
+ul, ol, dl {
+  list-style-position: inside;
+}
+p, ul, ol, dl, dt, dd {
+  line-height: 1.5em;
 }
 a {
-  color: #333333;
+  color: #FF0066;
   text-decoration: none;
 }
 a:hover {
-  color: #FF6699;
   text-decoration: underline;
 }
+a.link {
+  color: #000000;
+  text-decoration: none;
+}
+a.link:hover {
+  color: #FF0066;
+  text-decoration: none;
+}
+blockquote {
+  padding: 10px;
+  border: 2px solid #B6DCFA;
+}
+.clear {
+  clear: left;
+}
+/***************
+  layout
+***************/
+div#container {
+  margin: 0 auto;
+  border-top: 3px solid #000000;
+  padding-left: 100px;
+}
+div#header {
+  width: 780px;
+  height: 118px;
+  margin: 50px auto 0;
+/*  padding-left: 200px;*/
+  text-align: left;
+}
+div#content {
+  width: 780px;
+  margin: 0 auto;
+  text-align: left;
+}
+div#footer {
+  width: 780px;
+  margin: 0 auto;
+  text-align: left;
+  padding: 50px 0;
+}
+/***************
+  header
+***************/
+h1.logo {
+  font-size: 50px;
+  font-weight: bold;
+  letter-spacing: -2px;
+}
+h2.description {
+  font-size: 15px;
+  color: #999999;
+}
+/***************
+  content
+***************/
+.post {
+	margin: 10px 0 30px;
+}
+.post .title {
+	font-size: 30px;
+	font-weight: bold;
+}
+.published-at {
+  border-right: 1px solid #999999;
+  clear: both;
+  float: left;
+  color : #999999;
+  font-size: 12px;
+  margin-top: 10px;
+  margin-left: -250px;
+  padding-right: 25px;
+  position: relative;
+  text-align: right;
+  width: 199px;
+}
+/***************
+  menu
+***************/
+ul#menu {
+}
+ul#menu li {
+  float: left;
+}
+ul#menu li a {
+  display: block;
+}
+/***************
+  debug
+***************/
+/*
+* { outline: 2px dotted red }
+* * { outline: 2px dotted green }
+* * * { outline: 2px dotted orange }
+* * * * { outline: 2px dotted blue }
+* * * * * { outline: 2px dotted red }
+* * * * * * { outline: 2px dotted green }
+* * * * * * * { outline: 2px dotted orange }
+* * * * * * * * { outline: 2px dotted blue }
+*/

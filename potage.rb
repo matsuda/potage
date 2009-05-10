@@ -40,7 +40,8 @@ helpers do
   alias_method :h, :escape_html
 
   def date_format(date)
-    date && date.strftime("%Y/%m/%d %H:%M:%S")
+    # date && date.strftime("%Y/%m/%d %H:%M:%S")
+    date && date.strftime("%B %d %Y")
   end
 
   def rfc_date(datetime)
@@ -92,13 +93,12 @@ end
 # Routes
 # 
 get '/' do
-  @post = Post.reverse_order(:updated_at).first
-  @posts = Post.reverse_order(:updated_at)
+  @posts = Post.reverse_order(:created_at)
   haml :index
 end
 
 get '/posts' do
-  @posts = Post.reverse_order(:updated_at)
+  @posts = Post.reverse_order(:created_at)
   haml :posts
 end
 

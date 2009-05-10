@@ -31,4 +31,8 @@ class Post < Sequel::Model
   def content
     RDiscount.new(self[:content]).to_html
   end
+
+  def url
+    "/post/#{id}"
+  end
 end
