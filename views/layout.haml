@@ -20,19 +20,19 @@
         %h1.logo
           %a{:href => '/', :title => 'title', :class => 'link'}= Blog.title
         %h2.description= Blog.description
-        / %ul
-        /   %li
-        /     %a{:href => '/'} Top
-        /   %li
-        /     %a{:href => '/posts'} All
-        /   - if logged_in?
-        /     %li
-        /       %a{:href => '/admin/posts/new'} New
-        /     %li
-        /       %a{:href => '/logout'} logout
       #content
         = yield
       #footer
+        %ul
+          %li
+            %a{:href => '/'} Top
+          %li
+            %a{:href => '/posts'} All
+          - if logged_in?
+            %li
+              %a{:href => '/admin/posts/new'} New
+            %li
+              %a{:href => '/logout'} logout
         %div |
           Powerd by
           %a{:href => 'http://github.com/potage/potage/tree/master', :title => 'Potage'} Potage
