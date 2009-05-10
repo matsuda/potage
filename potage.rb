@@ -139,6 +139,25 @@ post '/admin/posts' do
   end
 end
 
+get '/admin/posts/edit/:id' do
+  authorized?
+  post = Post[params[:id]]
+  raise Sinatra::NotFound unless post
+  haml :'admin/edit', :locals => {:post => post}
+end
+
+put '/admin/posts' do
+  authorized?
+  post = Post[params[:id]]
+  raise Sinatra::NotFound unless post
+  begin
+    post.update :title => params[:title], :content => params[:content]
+    redirect "/post/#{post.id}"
+  rescue Sequel::ValidationFailed => e
+    haml :'admin/edit', :locals => {:post => post}
+  end
+end
+
 get '/feed' do
   @posts = Post.reverse_order(:created_at).limit(20)
   content_type 'application/xml', :charset => 'utf-8'

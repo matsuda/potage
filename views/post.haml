@@ -1,2 +1,4 @@
 %div.post= partial '_post', :locals => {:post => post}
+- if logged_in?
+  %a{:href => "/admin/posts/edit/#{post.id}"} edit
 %div.comment= Disqus.comment
