@@ -102,7 +102,7 @@ get '/' do
   haml :index
 end
 
-get '/posts' do
+get '/archive' do
   @posts = Post.reverse_order(:created_at)
   haml :posts
 end

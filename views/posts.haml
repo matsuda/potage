@@ -1,5 +1,5 @@
 - @posts.each do |post|
-  %p
-    %a{:href => "/post/#{post.id}"}= post.id
-    \:
-    &= post.title
+  %div.post
+    %p.published-at= date_format(post.created_at)
+    %h3.title
+      %a{:href => post.url, :class => 'link', :title => h(post.title)}&= post.title
