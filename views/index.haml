@@ -4,4 +4,4 @@
     - @posts.each do |post|
       - title = h(post.title)
       %li
-        %a{:href => "/post/#{post.id}", :title => title}= h title
+        %a{:href => "/post/#{post.id}", :title => title}= title
