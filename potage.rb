@@ -1,15 +1,15 @@
 require 'rubygems'
+require 'yaml'
 # require 'sinatra'
 require 'vendor/sinatra/lib/sinatra'
 require 'haml'
-require 'yaml'
+require 'rdiscount'
 
 # 
 # Configuration
 # 
 configure do
   enable :sessions
-  # set :sessions, true
   config = YAML.load_file(File.join(File.dirname(__FILE__), 'config', 'config.yml'))
   Blog = OpenStruct.new config["blog"]
   Admin = OpenStruct.new config["admin"]
@@ -58,6 +58,10 @@ helpers do
 
   def base_url
     "http://#{hostname}"
+  end
+
+  def markup(text)
+    RDiscount.new(text).to_html
   end
 
   def partial(template, options = {})
