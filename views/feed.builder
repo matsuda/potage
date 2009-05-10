@@ -16,8 +16,8 @@ xml.feed :'xml:lang' => 'ja-JP', :xmlns => 'http://www.w3.org/2005/Atom' do
       entry.title post.title
       entry.published rfc_date(post.created_at)
       entry.updated rfc_date(post.updated_at)
-      entry.content h(post.body), :type => 'html'
-      entry.summary h(post.body), :type => 'html'
+      entry.content h(post.content), :type => 'html'
+      entry.summary h(post.content), :type => 'html'
       entry.author do |author|
         author.name  Blog.author
       end
