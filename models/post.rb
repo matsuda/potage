@@ -1,5 +1,4 @@
 require 'sequel'
-require 'rdiscount'
 Sequel::Model.plugin(:schema)
 Sequel.connect('sqlite://db/potage.db')
 
@@ -26,10 +25,6 @@ class Post < Sequel::Model
   def validate
     errors[:title] << "can't be empty" if title.empty?
     errors[:content] << "can't be empty" if content.empty?
-  end
-
-  def content
-    RDiscount.new(self[:content]).to_html
   end
 
   def url

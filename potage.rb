@@ -3,6 +3,7 @@ require 'yaml'
 # require 'sinatra'
 require 'vendor/sinatra/lib/sinatra'
 require 'haml'
+require 'rdiscount'
 
 # 
 # Configuration
@@ -42,6 +43,10 @@ helpers do
   def date_format(date)
     # date && date.strftime("%Y/%m/%d %H:%M:%S")
     date && date.strftime("%B %d %Y")
+  end
+
+  def markup(text)
+    RDiscount.new(text).to_html
   end
 
   def rfc_date(datetime)
