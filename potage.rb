@@ -98,7 +98,7 @@ end
 # Routes
 # 
 get '/' do
-  @posts = Post.reverse_order(:created_at)
+  @post = Post.reverse_order(:created_at).first
   haml :index
 end
 
