@@ -126,7 +126,7 @@ end
 get '/admin/posts/new' do
   authorized?
   post = Post.new
-  haml :edit, :locals => {:post => post}
+  haml :'admin/edit', :locals => {:post => post}
 end
 
 post '/admin/posts' do
@@ -136,7 +136,7 @@ post '/admin/posts' do
     post.save
     redirect "/post/#{post.id}"
   rescue Sequel::ValidationFailed => e
-    haml :edit, :locals => {:post => post}
+    haml :'admin/edit', :locals => {:post => post}
   end
 end
 
