@@ -3,7 +3,6 @@ require 'yaml'
 # require 'sinatra'
 require 'vendor/sinatra/lib/sinatra'
 require 'haml'
-require 'rdiscount'
 
 # 
 # Configuration
