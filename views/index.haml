@@ -1,1 +1,2 @@
-%div.post= partial '_post', :locals => {:post => @post}
+- if @post
+  %div.post= partial '_post', :locals => {:post => @post}
