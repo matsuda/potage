@@ -1,6 +1,7 @@
 This is a plan : 
 
 Inspired with 
+
 http://github.com/toolmantim/toolmantim/tree/master
 http://github.com/karmi/marley/tree/master
 http://github.com/adamwiggins/scanty/tree/master
@@ -15,3 +16,8 @@ ORM : Sequel + SQLite3
 Photo : Flickr
 Comment : DISQUS
 Spam filter : Akismet
+
+
+BTS
+
+http://potage.lighthouseapp.com/projects/28325-potage/
