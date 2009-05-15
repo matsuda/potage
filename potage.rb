@@ -5,18 +5,6 @@ require 'vendor/sinatra/lib/sinatra'
 require 'haml'
 require 'rdiscount'
 
-# 
-# Configuration
-# 
-configure do
-  enable :sessions
-  config = YAML.load_file(File.join(File.dirname(__FILE__), 'config', 'config.yml'))
-  Blog = OpenStruct.new config["blog"]
-  Admin = OpenStruct.new config["admin"]
-  bit = ('0'..'9').to_a + ('A'..'Z').to_a
-  Admin.session_key = Array.new(8){ bit[rand(bit.size)] }.join
-end
-
 def require_or_load(file)
   development? ? load(file) : require(file)
 end
@@ -25,6 +13,18 @@ $LOAD_PATH.unshift(File.expand_path(File.join(File.dirname(__FILE__), 'models'))
 Dir[File.expand_path(File.join(File.dirname(__FILE__), 'models/*.rb'))].sort.each { |lib|
   require_or_load lib 
 }
+
+# 
+# Configuration
+# 
+configure do
+  enable :sessions
+  config = YAML.load_file(File.join(File.dirname(__FILE__), 'config', 'config.yml'))
+  Blog = OpenStruct.new config['blog']
+  Admin = OpenStruct.new config['admin']
+  bit = ('0'..'9').to_a + ('A'..'Z').to_a
+  Admin.session_key = Array.new(8){ bit[rand(bit.size)] }.join
+end
 
 error do
   e = request.env['sinatra.error']
