@@ -22,6 +22,7 @@ configure do
   config = YAML.load_file(File.join(File.dirname(__FILE__), 'config', 'config.yml'))
   Blog = OpenStruct.new config['blog']
   Admin = OpenStruct.new config['admin']
+  Disqus.setting config['disqus']['moderate_id'] if config["disqus"]
   bit = ('0'..'9').to_a + ('A'..'Z').to_a
   Admin.session_key = Array.new(8){ bit[rand(bit.size)] }.join
 end

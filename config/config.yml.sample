@@ -7,4 +7,5 @@ admin:
   username: "admin"
   password: "admin"
 
-  
+disqus:
+  moderate_id: "moderate id"
