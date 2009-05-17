@@ -7,11 +7,11 @@ The following is a plan.
 
 h2. Inspired with
 
-* http://github.com/toolmantim/toolmantim/tree/master
-* http://github.com/karmi/marley/tree/master
-* http://github.com/adamwiggins/scanty/tree/master
-* http://github.com/moomerman/frog/tree/master
-* http://github.com/bomberstudios/bliki/tree/master
+* "marley":http://github.com/karmi/marley/tree/master
+* "scanty":http://github.com/adamwiggins/scanty/tree/master
+* "frog":http://github.com/moomerman/frog/tree/master
+* "bliki":http://github.com/bomberstudios/bliki/tree/master
+* "toolmantim":http://github.com/toolmantim/toolmantim/tree/master
 
 h2. Ingredients
 
@@ -29,7 +29,9 @@ h2. Dependencies
 * Builder
 * RDiscount
 
-pre. $ sudo gem install sinatra rack sequel sqlite3-ruby rdiscount builder haml capistrano
+<pre>
+$ sudo gem install sinatra rack sequel sqlite3-ruby rdiscount builder haml capistrano
+</pre>
  
 h2. Deployment on server
 
