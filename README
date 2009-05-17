@@ -1,23 +1,42 @@
-This is a plan : 
+h1. Potage
 
-Inspired with 
+*Potage* is minimal blog engine written in Sinatra web framework.
+Potage have been written for my owner blog.
 
-http://github.com/toolmantim/toolmantim/tree/master
-http://github.com/karmi/marley/tree/master
-http://github.com/adamwiggins/scanty/tree/master
-http://github.com/moomerman/frog/tree/master
-http://github.com/bomberstudios/bliki/tree/master
+The following is a plan.
 
-Ingredients
+h2. Inspired with
 
-Base : Sinatra
-Template : HAML or Markdown or Textile
-ORM : Sequel + SQLite3
-Photo : Flickr
-Comment : DISQUS
-Spam filter : Akismet
+* http://github.com/toolmantim/toolmantim/tree/master
+* http://github.com/karmi/marley/tree/master
+* http://github.com/adamwiggins/scanty/tree/master
+* http://github.com/moomerman/frog/tree/master
+* http://github.com/bomberstudios/bliki/tree/master
 
+h2. Ingredients
 
-BTS
+* Framework : Sinatra
+* Template engine : HAML or Markdown
+* ORM : Sequel + SQLite3
+* Photo : Flickr or other photo storage services
+* Comment : DISQUS
 
-http://potage.lighthouseapp.com/projects/28325-potage/
+h2. Dependencies
+
+* Sinatra
+* Sequel
+* HAML
+* Builder
+* RDiscount
+
+pre. $ sudo gem install sinatra rack sequel sqlite3-ruby rdiscount builder haml capistrano
+ 
+h2. Deployment on server
+
+Ensure that you have correct information in config/config.yml.
+
+Potage is written for running at Dreamhost hosting service.
+Rename example deploy file to config/deploy.rb.
+
+* cap deploy:setup
+* cap deploy
