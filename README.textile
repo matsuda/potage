@@ -1,7 +1,7 @@
 h1. Potage
 
-*Potage* is minimal blog engine written in Sinatra web framework.
-Potage have been written for my owner blog.
+p. *Potage* is minimal blog engine written in Sinatra web framework.
+p. Potage have been written for my owner blog.
 
 The following is a plan.
 
