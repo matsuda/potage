@@ -9,8 +9,8 @@ def require_or_load(file)
   development? ? load(file) : require(file)
 end
 
-$LOAD_PATH.unshift(File.expand_path(File.join(File.dirname(__FILE__), 'models')))
-Dir[File.expand_path(File.join(File.dirname(__FILE__), 'models/*.rb'))].sort.each { |lib|
+$LOAD_PATH.unshift(File.expand_path(File.join(File.dirname(__FILE__), 'lib')))
+Dir[File.expand_path(File.join(File.dirname(__FILE__), 'lib/*.rb'))].sort.each { |lib|
   require_or_load lib 
 }
 
