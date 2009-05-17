@@ -2,3 +2,7 @@
 %h3.title
   %a{:href => post.url, :class => 'link', :title => h(post.title)}&= post.title
 %p.content= markup post.content
+.tags
+  - post.tag_list.each do |tag|
+    %a{:href => "/tag/#{tag}", :class => 'tag'}&= tag
+  

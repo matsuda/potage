@@ -1,9 +1,13 @@
 require 'rubygems'
 require 'yaml'
-# require 'sinatra'
-require 'vendor/sinatra/lib/sinatra'
+require 'sinatra'
+# require 'vendor/sinatra/lib/sinatra'
 require 'haml'
 require 'rdiscount'
+require 'sequel'
+
+Sequel::Model.plugin(:schema)
+Sequel.connect('sqlite://db/potage.db')
 
 def require_or_load(file)
   development? ? load(file) : require(file)
@@ -100,6 +104,7 @@ end
 # 
 get '/' do
   @post = Post.reverse_order(:created_at).first
+  @tags = @post.tags if @post
   haml :index
 end
 
@@ -137,6 +142,8 @@ end
 post '/admin/posts' do
   authorized?
   post = Post.new :title => params[:title], :content => params[:content]
+  post.tag_list = params[:tab_list]
+
   begin
     post.save
     redirect "/post/#{post.id}"
@@ -156,8 +163,11 @@ put '/admin/posts' do
   authorized?
   post = Post[params[:id]]
   raise Sinatra::NotFound unless post
+  post.set(:title => params[:title], :content => params[:content])
+  post.tag_list = params[:tag_list]
+
   begin
-    post.update :title => params[:title], :content => params[:content]
+    post.save
     redirect "/post/#{post.id}"
   rescue Sequel::ValidationFailed => e
     haml :'admin/edit', :locals => {:post => post}
