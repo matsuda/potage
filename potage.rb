@@ -5,6 +5,7 @@ require 'vendor/sinatra/lib/sinatra'
 require 'haml'
 require 'rdiscount'
 require 'sequel'
+require 'builder'
 
 Sequel::Model.plugin(:schema)
 Sequel.connect('sqlite://db/potage.db')
