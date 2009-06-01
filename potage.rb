@@ -10,12 +10,14 @@ require 'builder'
 Sequel::Model.plugin(:schema)
 Sequel.connect('sqlite://db/potage.db')
 
+APP_ROOT = File.expand_path(File.dirname(__FILE__))
+
 def require_or_load(file)
   development? ? load(file) : require(file)
 end
 
-$LOAD_PATH.unshift(File.expand_path(File.join(File.dirname(__FILE__), 'lib')))
-Dir[File.expand_path(File.join(File.dirname(__FILE__), 'lib/*.rb'))].sort.each { |lib|
+$LOAD_PATH.unshift(File.join(APP_ROOT, 'lib'))
+Dir[File.join(APP_ROOT, 'lib/*.rb')].sort.each { |lib|
   require_or_load lib 
 }
 
@@ -24,9 +26,10 @@ Dir[File.expand_path(File.join(File.dirname(__FILE__), 'lib/*.rb'))].sort.each {
 # 
 configure do
   enable :sessions
-  config = YAML.load_file(File.join(File.dirname(__FILE__), 'config', 'config.yml'))
+  config = YAML.load_file(File.join(APP_ROOT, 'config', 'config.yml'))
   Blog = OpenStruct.new config['blog']
   Admin = OpenStruct.new config['admin']
+  set :views, File.join(APP_ROOT, 'themes', config['theme'] || 'flavor')
   Disqus.setting config['disqus']['moderate_id'] if config["disqus"]
   bit = ('0'..'9').to_a + ('A'..'Z').to_a
   Admin.session_key = Array.new(8){ bit[rand(bit.size)] }.join
