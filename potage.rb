@@ -85,7 +85,7 @@ helpers do
   end
 
   def authorized?
-    redirect '/auth' and return unless logged_in?
+    redirect '/admin/auth' and return unless logged_in?
   end
 
   def authenticate(username, password)
@@ -120,17 +120,21 @@ get '/post/:id' do
   haml :post, :locals => {:post => post}
 end
 
-get '/auth' do
-  haml :auth
-end
-
-post '/auth' do
-  authenticate params[:username], params[:password]
+get '/logout' do
+  session['potage_admin'] = nil
   redirect '/'
 end
 
-get '/logout' do
-  session['potage_admin'] = nil
+get '/admin' do
+  redirect '/admin/auth'
+end
+
+get '/admin/auth' do
+  haml :'admin/auth', :layout => :admin
+end
+
+post '/admin/auth' do
+  authenticate params[:username], params[:password]
   redirect '/'
 end
 

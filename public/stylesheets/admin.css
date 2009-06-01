@@ -62,6 +62,8 @@ div#header {
   background: #000000;
   text-align: left;
   margin-bottom: 50px;
+  padding-bottom: 5px;
+  border-top: 2px solid #FF0066;
 }
 div#content {
   width: 900px;
@@ -100,16 +102,41 @@ h1.logo {
 h1.logo a {
   color: #FFFFFF;
 }
+ul#menu {
+  width: 376px;
+  height: 30px;
+  background: #333333;
+}
+ul#menu li {
+  float: left;
+  text-align: center;
+}
+ul#menu li a {
+  display: block;
+  width: 80px;
+  margin: 2px;
+  padding: 3px 5px;
+  color: #FFFFFF;
+}
+ul#menu li a:hover {
+  text-decoration: none;
+  display: block;
+  background-color: #000000;
+}
 /***************
   content
 ***************/
 .label {
   margin: 20px 0 5px;
-  font-weight: bold;
   font-size: 25px;
 }
 .input {
   font-size: 25px;
+  padding: 5px;
+}
+#auth .input {
+  font-size: 40px;
+  padding: 5px;
 }
 #content textarea {
   width: 100%;

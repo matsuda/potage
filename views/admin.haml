@@ -20,6 +20,16 @@
         .content
           %h1.logo
             %a{:href => '/', :title => 'title', :class => 'link'}= Blog.title
+          %ul#menu
+            %li
+              %a{:href => '/'} Top
+            %li
+              %a{:href => '/admin/posts/new'} New
+            %li
+              %a{:href => '/archive'} Archive
+            - if logged_in?
+              %li
+                %a{:href => '/logout'} logout
       #content.clearfix
         = yield
     #footer

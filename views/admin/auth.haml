@@ -1,0 +1,10 @@
+%div#auth
+  %form{:action => '/admin/auth', :method => 'post'}
+    .label Username :
+    %div
+      %input{:type => 'text', :name => 'username', :size => 30, :class => 'input'}
+    .label Password :
+    %div
+      %input{:type => 'password', :name => 'password', :size => 30, :class => 'input'}
+    .label
+      %input{:type => 'submit', :value => 'save', :class => 'submit'}
