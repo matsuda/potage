@@ -137,7 +137,7 @@ end
 get '/admin/posts/new' do
   authorized?
   post = Post.new
-  haml :'admin/edit', :locals => {:post => post}
+  haml :'admin/edit', :locals => {:post => post}, :layout => :admin
 end
 
 post '/admin/posts' do
@@ -149,7 +149,7 @@ post '/admin/posts' do
     post.save
     redirect "/post/#{post.id}"
   rescue Sequel::ValidationFailed => e
-    haml :'admin/edit', :locals => {:post => post}
+    haml :'admin/edit', :locals => {:post => post}, :layout => :admin
   end
 end
 
@@ -157,7 +157,7 @@ get '/admin/posts/edit/:id' do
   authorized?
   post = Post[params[:id]]
   raise Sinatra::NotFound unless post
-  haml :'admin/edit', :locals => {:post => post}
+  haml :'admin/edit', :locals => {:post => post}, :layout => :admin
 end
 
 put '/admin/posts' do
@@ -171,7 +171,7 @@ put '/admin/posts' do
     post.save
     redirect "/post/#{post.id}"
   rescue Sequel::ValidationFailed => e
-    haml :'admin/edit', :locals => {:post => post}
+    haml :'admin/edit', :locals => {:post => post}, :layout => :admin
   end
 end
 

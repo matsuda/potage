@@ -1,0 +1,148 @@
+@charset "utf-8";
+/***************
+  base
+***************/
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+html, body, #container {height: 100%;}
+body {
+  height: 100%;
+  font-size: 100%;
+  font-family: 'Helvetica Neue', Helvetica, Arial, 'ヒラギノ角ゴPro W3', 'Hiragino Kaku Gothic Pro', Osaka, 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', sans-serif;
+  background: #FFFFFF;
+  text-align: center;
+}
+img {
+  border: none;
+}
+hr {
+  display: none;
+}
+h1, h2, h3, h4, div, p, ul, ol, li, dt, dd, label, td {
+  font-weight: normal;
+  font-style: normal;
+}
+ul, dl {
+  list-style-type: none;
+}
+ul, ol, dl {
+  list-style-position: inside;
+}
+p, ul, ol, dl, dt, dd {
+}
+a {
+  color: #FF0066;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+blockquote {
+  padding: 10px;
+  border: 2px solid #B6DCFA;
+}
+.clear {
+  clear: left;
+}
+/***************
+  layout
+***************/
+body > #container {
+  height: auto;
+  min-height: 100%;
+}
+div#container {
+  width: 100%;
+}
+div#header {
+  color: #FFFFFF;
+  background: #000000;
+  text-align: left;
+  margin-bottom: 50px;
+}
+div#content {
+  width: 900px;
+  margin: 0 auto 50px;
+  padding-bottom: 150px;
+  text-align: left;
+}
+div#footer {
+  position: relative;
+  margin-top: -150px;
+  height: 150px;
+  clear: both;
+  background: #000000;
+  text-align: center;
+  color: #666666;
+}
+.content {
+  width: 900px;
+  margin: 0 auto;
+}
+/***************
+  common
+***************/
+div#header a, div#footer a {
+  color: #ffff99;
+}
+
+/***************
+  header
+***************/
+h1.logo {
+  padding: 15px 0;
+  letter-spacing: 1px;
+  font-style: italic;
+}
+h1.logo a {
+  color: #FFFFFF;
+}
+/***************
+  content
+***************/
+.label {
+  margin: 20px 0 5px;
+  font-weight: bold;
+  font-size: 25px;
+}
+.input {
+  font-size: 25px;
+}
+#content textarea {
+  width: 100%;
+}
+.markdown {
+  text-align: right;
+  margin-top: 5px;
+}
+.submit {
+  text-align: center;
+  width: 100px;
+}
+/***************
+  footer
+***************/
+#footer .content {
+  padding: 70px 0 0;
+}
+#footer .credit {
+  text-align: center;
+  font-size: 0.9em;
+  font-style: italic;
+}
+/* CLEAR FIX*/
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.clearfix {display: inline-block;}
+/* Hides from IE-mac \*/
+* html .clearfix { height: 1%;}
+.clearfix {display: block;}
+/* End hide from IE-mac */

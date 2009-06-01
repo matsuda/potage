@@ -1,17 +1,21 @@
-%form{:action => '/admin/posts', :method => 'post'}
-  %div title:
-  %div
-    %input{:type => 'text', :name => 'title', :value => post.title}
-  %div content:
-  %div
-    %textarea{:name => 'content', :rows => 8, :cols => 40}~ post.content
-  %div tag:
-  %div
-    %input{:type => 'text', :name => 'tag_list', :value => post.tag_list.join(Tag.delimiter)}
-  %div
-    %input{:type => 'submit', :value => 'save'}
-  - unless post.new?
+%div#edit
+  %form{:action => '/admin/posts', :method => 'post'}
+    .label Title :
     %div
-      %input{:type => 'hidden', :value => post.id, :name => 'id'}
+      %input{:type => 'text', :name => 'title', :size => 56, :class => 'input', :value => post.title}
+    .label Content :
     %div
-      %input{:type => 'hidden', :value => 'PUT', :name => '_method'}
+      %textarea{:name => 'content', :rows => 16, :cols => 98, :class => 'input'}~ post.content
+    .markdown
+      %a{:href => 'http://daringfireball.net/projects/markdown/dingus', :target => '_blank'} Markdown: Dingus
+    .label Tag :
+    %div
+      %input{:type => 'text', :name => 'tag_list', :size => 56, :class => 'input', :value => post.tag_list.join(Tag.delimiter)}
+    .label
+      %input{:type => 'submit', :value => 'save', :class => 'submit'}
+    - unless post.new?
+      %div
+        %input{:type => 'hidden', :value => post.id, :name => 'id'}
+      %div
+        %input{:type => 'hidden', :value => 'PUT', :name => '_method'}
+  

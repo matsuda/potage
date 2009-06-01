@@ -1,0 +1,29 @@
+!!! XML
+!!! Strict
+%html{ html_attrs("ja") }
+  %head
+    %meta{ 'http-equiv' => 'Content-Language', :conent => 'ja' }
+    %meta{ 'http-equiv' => 'Content-Type', :conent => 'text/html', :charset => 'utf-8' }
+    %meta{ 'http-equiv' => 'Content-Style-Type', :conent => 'text/css' }
+    %meta{ 'http-equiv' => 'Content-Script-Type', :conent => 'text/javascript' }
+    %meta{ 'http-equiv' => 'Imagetoolbar', :conent => 'no' }
+    %meta{ :name => 'Description', :conent => Blog.description }
+    %meta{ :name => 'Keywords', :conent => '' }
+    %meta{ :name => 'Author', :conent => Blog.author }
+    %title= Blog.title
+    %link{ :rel => 'alternate', :type => 'application/rss+xml', :title => 'RSS', :href => base_url+'/feed' }
+    -# %link{:rel => 'shortcut icon', :type => 'image/x-icon', :href => '/images/favicon.ico'}
+    %link{:rel => 'stylesheet', :type => 'text/css', :href => '/stylesheets/admin.css', :media => 'screen', :title => 'base', :charset => 'utf-8'}
+  %body
+    #container
+      #header
+        .content
+          %h1.logo
+            %a{:href => '/', :title => 'title', :class => 'link'}= Blog.title
+      #content.clearfix
+        = yield
+    #footer
+      .content
+        .credit
+          Powerd by
+          %a{:href => 'http://github.com/potage/potage/tree/master', :title => 'Potage'} Potage
