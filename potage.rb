@@ -29,7 +29,10 @@ configure do
   config = YAML.load_file(File.join(APP_ROOT, 'config', 'config.yml'))
   Blog = OpenStruct.new config['blog']
   Admin = OpenStruct.new config['admin']
-  set :views, File.join(APP_ROOT, 'themes', config['theme'] || 'flavor')
+  theme_path = File.join(APP_ROOT, 'themes', config['theme'] || 'flavor')
+  Theme = OpenStruct.new YAML.load_file(File.join(theme_path, 'info.yml'))
+  Theme.path = theme_path
+  set :views, Theme.path
   Disqus.setting config['disqus']['moderate_id'] if config["disqus"]
   bit = ('0'..'9').to_a + ('A'..'Z').to_a
   Admin.session_key = Array.new(8){ bit[rand(bit.size)] }.join
@@ -133,7 +136,7 @@ get '/admin' do
 end
 
 get '/admin/auth' do
-  haml :'admin/auth', :layout => :admin
+  haml :'admin/auth', :layout => :'admin/layout'
 end
 
 post '/admin/auth' do
@@ -144,7 +147,7 @@ end
 get '/admin/posts/new' do
   authorized?
   post = Post.new
-  haml :'admin/edit', :locals => {:post => post}, :layout => :admin
+  haml :'admin/edit', :locals => {:post => post}, :layout => :'admin/layout'
 end
 
 post '/admin/posts' do
@@ -156,7 +159,7 @@ post '/admin/posts' do
     post.save
     redirect "/post/#{post.id}"
   rescue Sequel::ValidationFailed => e
-    haml :'admin/edit', :locals => {:post => post}, :layout => :admin
+    haml :'admin/edit', :locals => {:post => post}, :layout => :'admin/layout'
   end
 end
 
@@ -164,7 +167,7 @@ get '/admin/posts/edit/:id' do
   authorized?
   post = Post[params[:id]]
   raise Sinatra::NotFound unless post
-  haml :'admin/edit', :locals => {:post => post}, :layout => :admin
+  haml :'admin/edit', :locals => {:post => post}, :layout => :'admin/layout'
 end
 
 put '/admin/posts' do
@@ -178,7 +181,7 @@ put '/admin/posts' do
     post.save
     redirect "/post/#{post.id}"
   rescue Sequel::ValidationFailed => e
-    haml :'admin/edit', :locals => {:post => post}, :layout => :admin
+    haml :'admin/edit', :locals => {:post => post}, :layout => :'admin/layout'
   end
 end
 

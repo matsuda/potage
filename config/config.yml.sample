@@ -9,3 +9,5 @@ admin:
 
 disqus:
   moderate_id: "moderate id"
+
+theme: flavor
