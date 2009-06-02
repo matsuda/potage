@@ -30,8 +30,7 @@ configure do
   Blog = OpenStruct.new config['blog']
   Admin = OpenStruct.new config['admin']
   theme_path = File.join(APP_ROOT, 'themes', config['theme'] || 'flavor')
-  Theme = OpenStruct.new YAML.load_file(File.join(theme_path, 'info.yml'))
-  Theme.path = theme_path
+  Theme = OpenStruct.new YAML.load_file( File.join(theme_path, 'info.yml') ).merge('path' => theme_path)
   set :views, Theme.path
   Disqus.setting config['disqus']['moderate_id'] if config["disqus"]
 end
