@@ -150,7 +150,7 @@ end
 post '/admin/posts' do
   authorized?
   post = Post.new :title => params[:title], :content => params[:content]
-  post.tag_list = params[:tab_list]
+  post.tag_list = params[:tag_list]
 
   begin
     post.save
