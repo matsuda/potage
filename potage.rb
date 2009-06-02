@@ -34,8 +34,6 @@ configure do
   Theme.path = theme_path
   set :views, Theme.path
   Disqus.setting config['disqus']['moderate_id'] if config["disqus"]
-  bit = ('0'..'9').to_a + ('A'..'Z').to_a
-  Admin.session_key = Array.new(8){ bit[rand(bit.size)] }.join
 end
 
 error do
@@ -96,10 +94,14 @@ helpers do
 
   def authenticate(username, password)
     if username == Admin.username && password == Admin.password
-      session['potage_admin'] = Admin.session_key
+      session['potage_admin'] = Admin.session_key ||= generate_session_key
     else
-      halt 401, 'Not Autorized'
+      halt 401, 'Not Authorized'
     end
+  end
+
+  def generate_session_key
+    Array.new(12){rand(62)}.pack("C*").tr("\x00-\x3d", "a-zA-Z0-9")
   end
 end
 
