@@ -1,7 +1,7 @@
 default_run_options[:pty] = true
 
 # github info
-set :github_user, 'potage'
+set :github_user, 'mat5uda'
 set :github_application, 'potage'
 set :repository,  "git://github.com/#{github_user}/#{github_application}.git"
 
